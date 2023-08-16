@@ -1,0 +1,37 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="register-container">
+        <form class="register-form" id="register">
+            <h1>Register</h1>
+            <div>
+                <input type="text" placeholder="First Name" id="firstName" class="input-field" required>
+                <input type="text" placeholder="Last Name" id="lastName" class="input-field" required>
+            </div>
+            <input type="text" placeholder="Username" id="username" class="input-field" required>
+            <input type="email" placeholder="Email" id="email" class="input-field" required>
+            <input type="password" placeholder="Password" id="password" class="input-field" required>
+            <input type="password" placeholder="Confirm Password" id="confirmPassword" class="input-field" required>
+            <div>
+                <label>Doctor:</label>
+                <input type="radio" name="role" class="input role" value="2" />
+                <label>User:</label>
+                <input type="radio" name="role" class="input role" value="3" />
+            </div>
+            <br>
+            <button type="submit" class="register-button">Register</button>
+            <p class="login-link">Already have an account? <a href="login.html">Login</a></p>
+        </form>
+    </div>
+</body>
+<script src="js/fetch.js"></script>
+<script src="js/register.js"></script>
+
+</html>
