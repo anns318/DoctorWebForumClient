@@ -1,9 +1,17 @@
-var connection = new signalR.HubConnectionBuilder()
+const connection = new signalR.HubConnectionBuilder()
   .withUrl("https://localhost:7157/chatHub")
   .build();
 
 //Disable the send button until connection is established.
 // document.getElementById("btn-sendMessages").disabled = true;
+connection
+  .start()
+  .then(function () {
+    document.getElementById("btn-sendMessages").disabled = false;
+  })
+  .catch(function (err) {
+    return console.error(err.toString());
+  });
 
 connection.on("ReceiveMessage", function (userId, user, message) {
   console.log({ userId, user, message });
@@ -17,15 +25,6 @@ connection.on("ReceiveMessage", function (userId, user, message) {
   // Scroll to the bottom of the messagesList
   messagesList.scrollTop = messagesList.scrollHeight;
 });
-
-connection
-  .start()
-  .then(function () {
-    document.getElementById("btn-sendMessages").disabled = false;
-  })
-  .catch(function (err) {
-    return console.error(err.toString());
-  });
 
 document
   .getElementById("form-message")
