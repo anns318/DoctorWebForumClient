@@ -85,7 +85,7 @@ function DomPostData(postData) {
                             : "https://localhost:7157/images/users/0.png"
                         }" alt="">
                         <div>
-                            <p> ${x.lastName} ${x.firstName}</p>
+                            <p>${x.firstName} ${x.lastName} </p>
                             <small>${formattedDate}</small>
                         </div>
                     </div>
@@ -163,9 +163,7 @@ async function getDataComment(id) {
       return `
         <div class="comment">
             <img class="user-avatar" src="${
-              x.userAvatarPath
-                ? x.userAvatarPath
-                : "https://localhost:7157/images/users/0.png"
+              "https://localhost:7157" + x.userAvatarPath
             }" alt="">
             <div class="comment-content">
                 <p class="comment-user">${x.userFirstName} ${x.userLastName}</p>
@@ -184,53 +182,53 @@ function clearCommentData() {
   postId = 0;
 }
 
-document
-  .getElementById("comment-form")
-  .addEventListener("submit", async function (event) {
-    event.preventDefault();
+// document
+//   .getElementById("comment-form")
+//   .addEventListener("submit", async function (event) {
+//     event.preventDefault();
 
-    const userId = userData.userId;
-    const comment = document.getElementById("comment-text").value;
+//     const userId = userData.userId;
+//     const comment = document.getElementById("comment-text").value;
 
-    if (userId && comment) {
-      const newComment = document.createElement("div");
-      newComment.classList.add("comment");
-      newComment.innerHTML = `
-         <div class="comment">
-            <img class="user-avatar" src="${
-              userData.userAvatar
-                ? userData.userAvatar
-                : "https://localhost:7157/images/users/0.png"
-            }" alt="">
-            <div class="comment-content">
-                <p class="comment-user">${userData.firstName} ${
-        userData.lastName
-      }</p>
-                <p class="comment-text">${comment}</p>
-            </div>
-        </div>
-        `;
+//     if (userId && comment) {
+//       const newComment = document.createElement("div");
+//       newComment.classList.add("comment");
+//       newComment.innerHTML = `
+//          <div class="comment">
+//             <img class="user-avatar" src="${
+//               userData.userAvatar
+//                 ? userData.userAvatar
+//                 : "https://localhost:7157/images/users/0.png"
+//             }" alt="">
+//             <div class="comment-content">
+//                 <p class="comment-user">${userData.firstName} ${
+//         userData.lastName
+//       }</p>
+//                 <p class="comment-text">${comment}</p>
+//             </div>
+//         </div>
+//         `;
 
-      const formData = { postId, userId, comment };
+//       const formData = { postId, userId, comment };
 
-      const res = await PostAPI(
-        "https://localhost:7157/api/Comments",
-        formData
-      );
+//       const res = await PostAPI(
+//         "https://localhost:7157/api/Comments",
+//         formData
+//       );
 
-      if (res.status === 201) {
-        document.querySelector(".comment-container").appendChild(newComment);
-        document.getElementById("comment-text").value = "";
+//       if (res.status === 201) {
+//         document.querySelector(".comment-container").appendChild(newComment);
+//         document.getElementById("comment-text").value = "";
 
-        const countCommentPost = document.querySelectorAll(".countCommentPost");
+//         const countCommentPost = document.querySelectorAll(".countCommentPost");
 
-        countCommentPost.forEach((element) => {
-          if (+element.getAttribute("countCommentPost") === postId) {
-            element.textContent = +element.textContent + 1;
-          }
-        });
-      } else {
-        alert("Something go wrong, please try again!");
-      }
-    }
-  });
+//         countCommentPost.forEach((element) => {
+//           if (+element.getAttribute("countCommentPost") === postId) {
+//             element.textContent = +element.textContent + 1;
+//           }
+//         });
+//       } else {
+//         alert("Something go wrong, please try again!");
+//       }
+//     }
+//   });

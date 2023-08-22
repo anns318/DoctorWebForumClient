@@ -50,9 +50,13 @@ img.logo {
     align-items: center;
 }
 
-.nav-left ul li {
+.nav-right ul li {
     display: inline-block;
     list-style: none;
+}
+
+.nav-right>.navlogo {
+    margin: 0;
 }
 
 ul.navlogo li img {
@@ -90,7 +94,7 @@ ul.navlogo li img {
 }
 
 .profile-image {
-    margin: 7px 0px 0px 18px;
+    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -357,6 +361,10 @@ img.advertisement-image {
 
 .post-upload-textarea {
     padding: 20px 0px 0px 0;
+}
+
+textarea {
+    outline: none;
 }
 
 .post-upload-textarea textarea {

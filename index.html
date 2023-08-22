@@ -18,25 +18,46 @@
 </head>
 
 <body>
-    <div id="container-notify" style="display: none;">
+    <div id="container-notify-display" style="display: none;">
 
+    </div>
+    <div class="modal fade" id="notification-modal" tabindex="-1" aria-labelledby="notification-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-sm" style="position: absolute;top: 54px;right: 23px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notification-modalLabel">Notification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <a class="container-notify" href="/post.html?id=2">
+                        <div class="notification"><img src="https://localhost:7157/images/users/0.png" alt="2">
+                            <div class="notification-content">
+                                <h3>Nguyen An comment on your post</h3>
+                                <p id="notificationTime">Just Now</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     <nav class="navbar">
         <div class="container">
             <div class="nav-left">
                 <div style="color: white;font-size: 20px;">DoctorWebForum</div>
-                <!-- <ul class="navlogo">
-                    <li><img src="images/notification.png"></li>
-                    <li><img src="images/inbox.png"></li>
-                    <li><img src="images/video.png"></li>
-                </ul> -->
 
             </div>
             <div class="nav-right">
+
                 <div class="search-box">
                     <img src="images/search.png" alt="">
                     <input type="text" placeholder="Search">
                 </div>
+                <ul class="navlogo">
+                    <li style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#notification-modal"><img src="images/notification.png"></li>
+                    <!-- <li><img src="images/inbox.png"></li>
+                    <li><img src="images/video.png"></li> -->
+                </ul>
                 <div class="profile-image online" onclick="UserSettingToggle()">
                     <img src="images/profile-pic.png" alt="">
                 </div>
