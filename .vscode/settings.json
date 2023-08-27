@@ -2,10 +2,10 @@
   "liveServer.settings.port": 5500,
   "liveServer.settings.root": "/",
   "liveServer.settings.CustomBrowser": "microsoft-edge",
-  "liveServer.settings.https": {
-    "enable": true,
-    "cert": "C:/localhost.pem",
-    "key": "C:/localhost.key",
-    "passphrase": "123456"
-  }
+//   "liveServer.settings.https": {
+//     "enable": true,
+//     "cert": "C:/localhost.pem",
+//     "key": "C:/localhost.key",
+//     "passphrase": "123456"
+//   }
 }

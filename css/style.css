@@ -66,6 +66,7 @@ ul.navlogo li img {
 
 .profile-image img {
     width: 40px;
+    height: 40px;
     border-radius: 100%;
 }
 
@@ -337,6 +338,7 @@ img.advertisement-image {
     width: 100%;
     padding: 20px;
     border-radius: 6px;
+    margin-bottom: 20px;
 }
 
 .user-profile {
@@ -346,6 +348,7 @@ img.advertisement-image {
 
 .user-profile img {
     width: 45px;
+    height: 45px;
     border-radius: 50%;
     margin-right: 10px;
 
@@ -396,7 +399,7 @@ textarea {
 }
 
 .status-field-container {
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 div.status-field {
@@ -411,7 +414,7 @@ div.status-field {
 }
 
 .status-field p {
-    font-size: 14px;
+    font-size: 17px;
     margin: 20px 0px 5px 0px;
     text-transform: capitalize;
     color: #626262;
@@ -476,6 +479,7 @@ footer#footer {
     font-size: 13px;
 }
 
+#notification-modal,
 .user-settings {
     position: absolute;
     right: 5%;
@@ -488,8 +492,10 @@ footer#footer {
     overflow: hidden;
     max-height: 0px;
     transition: max-height 0.3s;
+    overflow-y: scroll;
 }
 
+#notification-modal.notification-modal-showup-toggle,
 .user-setting-showup-toggle {
     max-height: 439px;
 }
@@ -509,7 +515,7 @@ footer#footer {
     color: #626262;
 }
 
-
+#notification-modal hr,
 .user-settings hr {
     width: 90%;
     margin: auto;
@@ -584,7 +590,8 @@ img.coverImage {
     margin-bottom: 20px;
 }
 
-.profile-container {
+#profile-container {
+    display: none;
     padding: 20px 15%;
     color: #626262;
 }
@@ -596,8 +603,9 @@ img.coverImage {
 
 .left-dashboard .dashboard-img {
     width: 100px;
+    height: 100px;
     margin-right: 15px;
-    border-radius: 10px;
+    border-radius: 100%;
 }
 
 .dashboard {
@@ -611,6 +619,10 @@ img.coverImage {
 .mutual-friend-images img {
     width: 25px;
     border-radius: 50%;
+}
+
+.left-dashboard-info {
+    position: relative;
 }
 
 .left-dashboard-info h3 {
@@ -681,8 +693,13 @@ img.coverImage {
     margin: 5px;
 }
 
-.intro-bio i {
-    color: rgb(255, 196, 0);
+.intro-bio img {
+    cursor: pointer;
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    filter: invert(40%) sepia(6%) hue-rotate(185deg);
+    ;
 }
 
 .intro-bio hr {
@@ -703,6 +720,9 @@ img.coverImage {
 
 .background-details a i {
     margin-right: 10px;
+    width: 15px;
+    display: flex;
+    justify-content: center;
 }
 
 .left-profile-sidebar-top.gallery {
@@ -729,11 +749,11 @@ input[type="file"] {
     overflow: hidden;
 }
 
-input[type="file"]:focus-within::file-selector-button,
+/* input[type="file"]:focus-within::file-selector-button,
 input[type="file"]:focus::file-selector-button {
-    /* outline: 1px solid #0964b0;
-    outline-offset: 1px; */
-}
+    outline: 1px solid #0964b0;
+    outline-offset: 1px;
+} */
 
 
 
@@ -798,6 +818,9 @@ input[type="file"]::file-selector-button:active {
 .comment-container {
     max-width: 600px;
     margin: 0 auto;
+    max-height: 600px;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .comment {
@@ -810,7 +833,7 @@ input[type="file"]::file-selector-button:active {
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 15px;
+    margin-right: 8px;
     flex-shrink: 0;
 }
 
@@ -835,7 +858,7 @@ input[type="file"]::file-selector-button:active {
     display: flex;
     border-top: 1px solid #ddd;
     padding: 10px 0;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 
@@ -907,4 +930,66 @@ input[type="file"]::file-selector-button:active {
 
 #messagesList>div {
     margin-bottom: 5px;
+}
+
+.user-comment-section {
+    /* border: 1px solid #cfcfcf; */
+    padding: 5px 10px;
+    border-radius: 20px;
+    width: unset;
+    display: inline-block;
+    background-color: #f9f9f9;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+}
+
+.user-comment-time {
+    padding-left: 5px;
+    margin-top: 5px;
+}
+
+.comment-container,
+.user-settings,
+#notification-modal {
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.comment-container::-webkit-scrollbar,
+.user-settings::-webkit-scrollbar,
+#notification-modal::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
+}
+
+.comment:first-child {
+    margin-top: 2px;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .container {
+        padding: 0;
+        width: 100% !important;
+    }
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0;
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .right-sidebar {
+        display: none;
+    }
+
+    .content-area {
+        flex: 1
+    }
 }

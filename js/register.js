@@ -33,7 +33,7 @@ document.querySelector("#register").addEventListener("submit", async (e) => {
   };
 
   const res = await PostAPI(
-    "https://localhost:7157/api/Auth/Register",
+    "http://localhost:5057/api/Auth/Register",
     formData
   );
 

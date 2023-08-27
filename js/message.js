@@ -1,5 +1,6 @@
 const connection = new signalR.HubConnectionBuilder()
-  .withUrl("https://localhost:7157/chatHub")
+  .configureLogging(signalR.LogLevel.None)
+  .withUrl("http://localhost:5057/chatHub")
   .build();
 
 //Disable the send button until connection is established.

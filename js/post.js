@@ -6,10 +6,10 @@ const postId = urlParam.get("id");
 let comment = [];
 
 async function getPost() {
-  const resPost = await GetAPI(`https://localhost:7157/api/Posts/${postId}`);
+  const resPost = await GetAPI(`http://localhost:5057/api/Posts/${postId}`);
 
   const resComment = await GetAPI(
-    `https://localhost:7157/api/Posts/comment/${postId}`
+    `http://localhost:5057/api/Posts/comment/${postId}`
   );
   console.log();
   const inputDate = new Date(resPost.createDate);
@@ -29,7 +29,7 @@ async function getPost() {
   const htmlPost = `
 <div class="user-profile-box">
                     <div class="user-profile">
-                        <img src="https://localhost:7157${
+                        <img src="http://localhost:5057/${
                           resPost.userAvatar
                         }" alt="">
                         <div>
@@ -45,7 +45,7 @@ async function getPost() {
                     <p>${resPost.title}</p>
                     ${
                       resPost.imageUrl
-                        ? `<img src="https://localhost:7157${resPost.imageUrl}" alt="${resPost.id}">`
+                        ? `<img src="http://localhost:5057/${resPost.imageUrl}" alt="${resPost.id}">`
                         : ""
                     }
                 </div>
@@ -64,17 +64,28 @@ async function getPost() {
                 </div>
     `;
   document.querySelector("#post-content").innerHTML = htmlPost;
-
+  const currentDateTime = Date.now();
   const htmlComment = resComment
     .map((x) => {
+      const timeDifference = currentDateTime - new Date(x.commentCreateDate);
+
       return `
             <div class="comment">
-                            <img class="user-avatar" src="https://localhost:7157${x.userAvatarPath}" alt="${x.userId}">
+                            <img class="user-avatar" src="http://localhost:5057/${
+                              x.userAvatarPath
+                            }" alt="${x.userId}">
                             <div class="comment-content">
-                                <p class="comment-user">${x.userFirstName} ${x.userLastName}</p>
-                                <p class="comment-text">${x.comment}
-                                </p>
-                            </div>
+                <div class="user-comment-section">
+                    <p class="comment-user">${x.userFirstName} ${
+        x.userLastName
+      }</p>
+                <p class="comment-text">${x.comment}</p>
+                </div>
+                <div class="user-comment-time">
+                    <small>${calculateTimeDiff(timeDifference)}</small>
+                </div>
+                
+            </div>
                         </div>
     `;
     })
@@ -86,10 +97,10 @@ async function getCommentByPost() {}
 
 getPost();
 function domUserAvatar() {
-  let avatarUrl = "https://localhost:7157/images/users/0.png";
+  let avatarUrl = "http://localhost:5057/images/users/0.png";
 
   if (userData.avatar !== "null") {
-    avatarUrl = `https://localhost:7157${userData.avatar}`;
+    avatarUrl = `http://localhost:5057/${userData.avatar}`;
   }
   document.querySelector(".profile-image>img").setAttribute("src", avatarUrl);
   document.querySelectorAll(".user-profile>img.user-ava").forEach((e) => {

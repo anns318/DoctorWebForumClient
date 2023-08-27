@@ -40,7 +40,7 @@ async function postFormHandler() {
     userId: userData.userId,
   };
 
-  const res = await PostAPI("https://localhost:7157/api/Posts", formData);
+  const res = await PostAPI("http://localhost:5057/api/Posts", formData);
   console.log(res);
   if (res.status === 201) {
     postData = [res.data, ...postData];
@@ -51,7 +51,7 @@ async function postFormHandler() {
   }
 }
 async function getPostData() {
-  const res = await GetAPI("https://localhost:7157/api/Posts");
+  const res = await GetAPI("http://localhost:5057/api/Posts");
   postData = res;
 }
 
@@ -81,8 +81,8 @@ function DomPostData(postData) {
                     <div class="user-profile">
                         <img src="${
                           x.userAvatar
-                            ? "https://localhost:7157" + x.userAvatar
-                            : "https://localhost:7157/images/users/0.png"
+                            ? "http://localhost:5057/" + x.userAvatar
+                            : "http://localhost:5057/images/users/0.png"
                         }" alt="">
                         <div>
                             <p>${x.firstName} ${x.lastName} </p>
@@ -98,7 +98,7 @@ function DomPostData(postData) {
                     
             ${
               x.imageUrl
-                ? `<img src="https://localhost:7157${x.imageUrl}" alt="">`
+                ? `<img src="http://localhost:5057/${x.imageUrl}" alt="">`
                 : ""
             }
                 </div>
@@ -138,16 +138,17 @@ function previewImage() {
 }
 
 function domUserAvatar() {
-  let avatarUrl = "https://localhost:7157/images/users/0.png";
+  let avatarUrl = "http://localhost:5057/images/users/0.png";
 
   if (userData.avatar !== "null") {
-    avatarUrl = `https://localhost:7157${userData.avatar}`;
+    avatarUrl = `http://localhost:5057/${userData.avatar}`;
   }
-  console.log(avatarUrl);
+
   document.querySelector(".profile-image>img").setAttribute("src", avatarUrl);
   document.querySelectorAll(".user-profile>img.user-ava").forEach((e) => {
     e.setAttribute("src", avatarUrl);
   });
+  console.log();
   document
     .querySelector("#comment-form img.user-avatar")
     .setAttribute("src", avatarUrl);
@@ -155,19 +156,30 @@ function domUserAvatar() {
 
 async function getDataComment(id) {
   postId = id;
-  const data = await GetAPI(`https://localhost:7157/api/Posts/comment/${id}`);
+  const data = await GetAPI(`http://localhost:5057/api/Posts/comment/${id}`);
   const commentContainer = document.querySelector(".comment-container");
+  const currentDateTime = Date.now();
 
   const dataHtml = data
     .map((x) => {
+      const timeDifference = currentDateTime - new Date(x.commentCreateDate);
+
       return `
         <div class="comment">
             <img class="user-avatar" src="${
-              "https://localhost:7157" + x.userAvatarPath
+              "http://localhost:5057/" + x.userAvatarPath
             }" alt="">
             <div class="comment-content">
-                <p class="comment-user">${x.userFirstName} ${x.userLastName}</p>
+                <div class="user-comment-section">
+                    <p class="comment-user">${x.userFirstName} ${
+        x.userLastName
+      }</p>
                 <p class="comment-text">${x.comment}</p>
+                </div>
+                <div class="user-comment-time">
+                    <small>${calculateTimeDiff(timeDifference)}</small>
+                </div>
+                
             </div>
         </div>
     `;
@@ -181,54 +193,3 @@ function clearCommentData() {
   commentContainer.innerHTML = ``;
   postId = 0;
 }
-
-// document
-//   .getElementById("comment-form")
-//   .addEventListener("submit", async function (event) {
-//     event.preventDefault();
-
-//     const userId = userData.userId;
-//     const comment = document.getElementById("comment-text").value;
-
-//     if (userId && comment) {
-//       const newComment = document.createElement("div");
-//       newComment.classList.add("comment");
-//       newComment.innerHTML = `
-//          <div class="comment">
-//             <img class="user-avatar" src="${
-//               userData.userAvatar
-//                 ? userData.userAvatar
-//                 : "https://localhost:7157/images/users/0.png"
-//             }" alt="">
-//             <div class="comment-content">
-//                 <p class="comment-user">${userData.firstName} ${
-//         userData.lastName
-//       }</p>
-//                 <p class="comment-text">${comment}</p>
-//             </div>
-//         </div>
-//         `;
-
-//       const formData = { postId, userId, comment };
-
-//       const res = await PostAPI(
-//         "https://localhost:7157/api/Comments",
-//         formData
-//       );
-
-//       if (res.status === 201) {
-//         document.querySelector(".comment-container").appendChild(newComment);
-//         document.getElementById("comment-text").value = "";
-
-//         const countCommentPost = document.querySelectorAll(".countCommentPost");
-
-//         countCommentPost.forEach((element) => {
-//           if (+element.getAttribute("countCommentPost") === postId) {
-//             element.textContent = +element.textContent + 1;
-//           }
-//         });
-//       } else {
-//         alert("Something go wrong, please try again!");
-//       }
-//     }
-//   });

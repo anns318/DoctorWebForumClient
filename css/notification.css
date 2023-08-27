@@ -14,7 +14,8 @@
 
 
  .notification {
-     padding: 10px;
+     padding: 18px;
+     padding-bottom: 10px;
      border-bottom: 1px solid #ccc;
      display: flex;
      align-items: center;
@@ -51,4 +52,53 @@
  .modal-body>.container-notify {
      text-decoration: none;
 
+ }
+
+ #notification-modal #notification-modal .modal-content {
+     min-width: 300px !important
+ }
+
+ #notification-modal .modal-dialog {
+     position: fixed;
+     top: 54px;
+     right: 100px;
+ }
+
+
+ #notification-modalLabel {
+     margin: 20px;
+     margin-bottom: 10px;
+ }
+
+ .container-notify {
+     text-decoration: none;
+ }
+
+ @media (max-width: 1920px) {
+     #notification-modal .modal-dialog {
+         position: fixed;
+         top: 54px;
+         right: 80px;
+     }
+ }
+
+ @media (max-width: 1440px) {
+     #notification-modal .modal-dialog {
+         position: fixed;
+         top: 54px;
+         right: 80px;
+     }
+ }
+
+ @media (max-width: 1024px) {
+     #notification-modal .modal-dialog {
+         position: fixed;
+         top: 54px;
+         right: 20px;
+     }
+
+     .container {
+         padding: 0;
+         width: 100% !important;
+     }
  }
