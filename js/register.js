@@ -28,7 +28,7 @@ document.querySelector("#register").addEventListener("submit", async (e) => {
     lastName,
     userName,
     email,
-    hashedPassword: password,
+    password,
     roleId,
   };
 

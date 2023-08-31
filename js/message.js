@@ -7,8 +7,9 @@ const connection = new signalR.HubConnectionBuilder()
 // document.getElementById("btn-sendMessages").disabled = true;
 connection
   .start()
-  .then(function () {
+  .then(async function () {
     document.getElementById("btn-sendMessages").disabled = false;
+    await getOldMessage();
   })
   .catch(function (err) {
     return console.error(err.toString());
@@ -27,12 +28,27 @@ connection.on("ReceiveMessage", function (userId, user, message) {
   messagesList.scrollTop = messagesList.scrollHeight;
 });
 
+async function getOldMessage() {
+  const data = await GetAPI(`http://localhost:5057/api/Messages`);
+
+  const dataHtml = data
+    .map((x) => {
+      return `<div><span>${x.lastName} ${x.firstName}: </span><span>${x.message}</span></div>`;
+    })
+    .join("");
+
+  const messagesList = document.getElementById("messagesList");
+  messagesList.innerHTML = dataHtml;
+  // Scroll to the bottom of the messagesList
+  messagesList.scrollTop = messagesList.scrollHeight;
+}
+
 document
   .getElementById("form-message")
   .addEventListener("submit", function (event) {
     event.preventDefault();
     const userId = userData.userId;
-    const user = `${userData.firstName} ${userData.lastName} (${userData.role})`;
+    const user = `${userData.firstName} ${userData.lastName}`;
     const message = document.getElementById("chatbox").value;
 
     connection
