@@ -1,3 +1,8 @@
+const openButton = document.getElementById("openButton");
+const popup = document.getElementById("popup");
+const chatArea = document.getElementById("messagesList");
+const sendButton = document.getElementById("btn-sendMessages");
+
 const connection = new signalR.HubConnectionBuilder()
   .configureLogging(signalR.LogLevel.None)
   .withUrl("http://localhost:5057/chatHub")
@@ -33,13 +38,14 @@ async function getOldMessage() {
 
   const dataHtml = data
     .map((x) => {
-      return `<div><span>${x.lastName} ${x.firstName}: </span><span>${x.message}</span></div>`;
+      return `<div><span>${x.firstName} ${x.lastName}: </span><span>${x.message}</span></div>`;
     })
     .join("");
 
   const messagesList = document.getElementById("messagesList");
   messagesList.innerHTML = dataHtml;
-  // Scroll to the bottom of the messagesList
+
+  console.log(messagesList.scrollHeight);
   messagesList.scrollTop = messagesList.scrollHeight;
 }
 
@@ -49,12 +55,31 @@ document
     event.preventDefault();
     const userId = userData.userId;
     const user = `${userData.firstName} ${userData.lastName}`;
-    const message = document.getElementById("chatbox").value;
+    const messageInput = document.getElementById("chatbox");
 
-    connection
-      .invoke("SendMessage", userId, user, message)
-      .catch(function (err) {
-        return console.error(err.toString());
-      });
-    event.preventDefault();
+    const message = messageInput.value;
+
+    if (message.trim() !== "") {
+      connection
+        .invoke("SendMessage", userId, user, message)
+        .catch(function (err) {
+          return console.error(err.toString());
+        });
+      event.preventDefault();
+      messageInput.value = "";
+    }
   });
+
+openButton.addEventListener("click", () => {
+  if (popup.style.display === "block") {
+    popup.style.display = "none"; // Hide the popup if it's already visible
+  } else {
+    popup.style.display = "block";
+  }
+});
+
+sendButton.addEventListener("click", () => {});
+
+document.getElementById("close-messenger").addEventListener("click", () => {
+  popup.style.display = "none";
+});

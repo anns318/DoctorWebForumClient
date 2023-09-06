@@ -1,5 +1,5 @@
 const userData = parseJwt(jwt);
-// console.log("🚀 ~ file: profile.js:2 ~ userData:", userData);
+console.log("🚀 ~ file: profile.js:2 ~ userData:", userData);
 const urlParam = new URLSearchParams(document.location.search);
 const userNameParam = urlParam.get("username");
 // console.log("🚀 ~ file: profile.js:4 ~ userNameParam:", userNameParam);
@@ -21,8 +21,28 @@ $("document").ready(async () => {
     return getUserWhenHaveUrlParam();
   }
   getUserProfile();
+  document.querySelector(".dashboard-img").addEventListener("click", () => {
+    const updateAvatarBtn = document.querySelector("#update-avatar-btn");
+    if (updateAvatarBtn.style.display === "none") {
+      updateAvatarBtn.style.display = "block";
+    } else {
+      updateAvatarBtn.style.display = "none";
+    }
+  });
+
   document.getElementById("profile-container").style.display = "block";
+  if (userData.role === "Doctor") {
+    displayVerify();
+  }
 });
+
+function displayVerify() {
+  const verify = document.createElement("img");
+  verify.src = `/images/verify2.png`;
+  verify.id = "verify-image";
+  document.querySelector("#profile-name").appendChild(verify);
+}
+
 async function getUserProfile() {
   getUserDetail();
   domProfileUser(userData.firstName, userData.lastName);
@@ -38,6 +58,7 @@ async function getUserDetailByUserName() {
   const res = await GetAPI(
     `http://localhost:5057/api/Users/profile/${userNameParam}`
   );
+  console.log("🚀 ~ file: profile.js:52 ~ getUserDetailByUserName ~ res:", res);
 
   if (res === 404) {
     document.querySelector(
@@ -46,6 +67,9 @@ async function getUserDetailByUserName() {
 
     document.getElementById("profile-container").style.display = "block";
     return;
+  }
+  if (res.roleId === 2) {
+    displayVerify();
   }
   document.querySelector(
     ".left-dashboard .dashboard-img"
@@ -63,7 +87,6 @@ async function getUserDetailByUserName() {
 function hideSetting() {
   $(".intro-bio > img").hide();
   $(".background-details #edit-information-icon").hide();
-  $("#edit-name-btn").hide();
 
   $(".write-post-container").hide();
 }

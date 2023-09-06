@@ -344,6 +344,7 @@ img.advertisement-image {
 .user-profile {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .user-profile img {
@@ -606,6 +607,7 @@ img.coverImage {
     height: 100px;
     margin-right: 15px;
     border-radius: 100%;
+    cursor: pointer;
 }
 
 .dashboard {
@@ -909,7 +911,6 @@ input[type="file"]::file-selector-button:active {
     height: 22px;
     width: 100%;
     border: none;
-    border-bottom: 1px solid black;
 
 }
 
@@ -922,11 +923,11 @@ input[type="file"]::file-selector-button:active {
     overflow-y: scroll;
 }
 
-#btn-sendMessages {
+/* #btn-sendMessages {
     position: absolute;
     top: -5px;
     right: -10px;
-}
+} */
 
 #messagesList>div {
     margin-bottom: 5px;
@@ -982,6 +983,14 @@ input[type="file"]::file-selector-button:active {
         padding: 0;
         width: 100% !important;
     }
+
+    .content-area {
+        flex-basis: 100%;
+    }
+
+    .right-sidebar {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 425px) {
@@ -991,5 +1000,19 @@ input[type="file"]::file-selector-button:active {
 
     .content-area {
         flex: 1
+    }
+}
+
+@media (max-width: 1024px) {
+    #notification-modal .modal-dialog {
+        position: fixed;
+        top: 54px;
+        right: 20px;
+    }
+
+    .container {
+        padding: 0;
+        max-width: 100% !important;
+        width: 100%;
     }
 }

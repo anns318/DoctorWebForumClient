@@ -60,15 +60,15 @@ document
 
     const userId = userData.userId;
     const comment = document.getElementById("comment-text").value;
-
+    console.log(userData);
     if (userId && comment) {
       const newComment = document.createElement("div");
       newComment.classList.add("comment");
       newComment.innerHTML = `
          <div class="comment">
             <img class="user-avatar" src="${
-              userData.userAvatar
-                ? userData.userAvatar
+              userData.avatar
+                ? `http://localhost:5057${userData.avatar}`
                 : "http://localhost:5057/images/users/0.png"
             }" alt="">
             <div class="comment-content">

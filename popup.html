@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Messenger</title>
+    <style>
+        /* Styles for the popup container */
+        .popup-container {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Styles for the popup header */
+        .popup-header {
+            background-color: #4267B2;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Styles for the popup chat area */
+        .popup-chat {
+            padding: 10px;
+            overflow-y: scroll;
+            height: 280px;
+        }
+
+        /* Styles for the input field and send button */
+        .popup-input {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #ccc;
+        }
+
+        .popup-input input[type="text"] {
+            width: 80%;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .popup-input button {
+            background-color: #4267B2;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="openButton">Open Messenger</button>
+    <div id="popup" class="popup-container">
+        <div class="popup-header">Messenger</div>
+        <div class="popup-chat" id="messagesList"></div>
+        <form id="form-message" class="popup-input">
+            <input type="text" name="chat" id="chatbox" placeholder="Message">
+            <button id="btn-sendMessages" class="btn"><i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript for showing and hiding the popup
+        const openButton = document.getElementById("openButton");
+        const popup = document.getElementById("popup");
+        const messageInput = document.getElementById("chatbox");
+        const chatArea = document.getElementById("messagesList");
+        const sendButton = document.getElementById("btn-sendMessages");
+
+        openButton.addEventListener("click", () => {
+            popup.style.display = "block";
+        });
+
+        sendButton.addEventListener("click", () => {
+            const message = messageInput.value;
+            if (message.trim() !== "") {
+                const messageElement = document.createElement("p");
+                messageElement.textContent = message;
+                chatArea.appendChild(messageElement);
+                messageInput.value = "";
+            }
+        });
+    </script>
+</body>
+
+</html>

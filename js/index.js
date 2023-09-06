@@ -52,6 +52,7 @@ async function postFormHandler() {
 }
 async function getPostData() {
   const res = await GetAPI("http://localhost:5057/api/Posts");
+  console.log("🚀 ~ file: index.js:55 ~ getPostData ~ res:", res);
   postData = res;
 }
 
@@ -78,7 +79,9 @@ function DomPostData(postData) {
                x.id
              }" class=" status-field-container write-post-container">
                 <div class="user-profile-box">
-                    <div class="user-profile">
+                    <a href="/profile.html?username=${
+                      x.username
+                    }" class="user-profile">
                         <img src="${
                           x.userAvatar
                             ? "http://localhost:5057/" + x.userAvatar
@@ -88,7 +91,7 @@ function DomPostData(postData) {
                             <p>${x.firstName} ${x.lastName} </p>
                             <small>${formattedDate}</small>
                         </div>
-                    </div>
+                    </a>
                     <div>
                         <a href="#"><i class="fas fa-ellipsis-v"></i></a>
                     </div>
